@@ -1,29 +1,29 @@
-import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
-  loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-  });
+  private fb = inject(FormBuilder);
+  private userService = inject(UserService);
+  private router = inject(Router);
 
   error = signal('');
 
-  constructor(private userService: UserService, private router: Router) {}
+  loginForm = this.fb.nonNullable.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+  });
 
   login() {
     this.error.set('');
-
-    this.userService.login(this.loginForm.value as any).subscribe({
+    this.userService.login(this.loginForm.getRawValue()).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);
         this.router.navigate(['/home']);

@@ -9,4 +9,7 @@
   <p>Rol: {{ u.roleType === 1 ? 'Admin' : 'User' }}</p>
 }
 
+@if (user(); as u) {
+  <a [routerLink]="['/home/users', u.id, 'edit']">Editar</a>
+}
 <a routerLink="/home">Volver</a>

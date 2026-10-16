@@ -1,16 +1,12 @@
 # api_gestion-frontend
 
-Login en Angular: formulario reactivo, `LoginModel`, `UserService`, `POST /User/login`.
+Frontend en Angular 22. Necesita Node 22.22 o más nuevo.
 
 ## Correr
 
 ```bash
 npm install
-ng serve
+npm start
 ```
 
-Queda en `http://localhost:4200`. Necesita el backend corriendo en `http://localhost:5224` ([api_gestion](https://github.com/mateopavoniTSDS/api_gestion)).
-
-## Probar el login
-
-Hay que crear un usuario primero (instrucciones en el README del backend) y loguearse con esos datos en el formulario. Si las credenciales son incorrectas se muestra un error; si son correctas se muestra el token.
+Queda en `http://localhost:4200`. La API tiene que estar corriendo en `http://localhost:5224`.

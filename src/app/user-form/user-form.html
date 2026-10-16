@@ -1,0 +1,60 @@
+<h2>{{ editing ? 'Editar usuario' : 'Nuevo usuario' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <label>Nombre</label>
+  <input formControlName="name">
+  @if (form.controls.name.touched && form.controls.name.invalid) {
+    <p class="error">El nombre debe tener entre 2 y 100 caracteres</p>
+  }
+
+  <label>DNI</label>
+  <input formControlName="dni">
+  @if (form.controls.dni.touched && form.controls.dni.invalid) {
+    <p class="error">El DNI debe tener entre 6 y 20 caracteres</p>
+  }
+
+  <label>Email</label>
+  <input type="email" formControlName="email">
+  @if (form.controls.email.touched && form.controls.email.invalid) {
+    <p class="error">El email no es válido</p>
+  }
+
+  <label>Password</label>
+  <input type="password" formControlName="password">
+  @if (form.controls.password.touched && form.controls.password.invalid) {
+    <p class="error">La contraseña debe tener entre 6 y 100 caracteres</p>
+  }
+
+  <label>Rol</label>
+  <select formControlName="roleType">
+    <option [value]="0">User</option>
+    <option [value]="1">Admin</option>
+  </select>
+
+  <fieldset formGroupName="address">
+    <legend>Dirección</legend>
+    <label>Calle</label>
+    <input formControlName="street">
+    <label>Ciudad</label>
+    <input formControlName="city">
+  </fieldset>
+
+  <fieldset>
+    <legend>Teléfonos</legend>
+    @for (phone of phones.controls; track $index) {
+      <div>
+        <input [formControl]="$any(phone)">
+        <button type="button" (click)="removePhone($index)">Quitar</button>
+      </div>
+    }
+    <button type="button" (click)="addPhone()">Agregar teléfono</button>
+  </fieldset>
+
+  <button type="submit" [disabled]="form.invalid">Guardar</button>
+</form>
+
+@if (error()) {
+  <p class="error">{{ error() }}</p>
+}
+
+<a routerLink="/home">Volver</a>
