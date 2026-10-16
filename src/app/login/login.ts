@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from '../services/user';
 
 @Component({
@@ -15,17 +16,18 @@ export class Login {
     password: new FormControl(''),
   });
 
-  token = signal('');
   error = signal('');
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   login() {
     this.error.set('');
-    this.token.set('');
 
     this.userService.login(this.loginForm.value as any).subscribe({
-      next: (res) => this.token.set(res.token),
+      next: (res) => {
+        localStorage.setItem('token', res.token);
+        this.router.navigate(['/home']);
+      },
       error: () => this.error.set('Credenciales incorrectas'),
     });
   }
