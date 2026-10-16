@@ -4,7 +4,6 @@ import { Home } from './home/home';
 import { UserList } from './user-list/user-list';
 import { UserDetail } from './user-detail/user-detail';
 import { UserForm } from './user-form/user-form';
-import { UserService } from './services/user';
 import { authGuard } from './auth-guard';
 import { NotFound } from './not-found/not-found';
 
@@ -16,8 +15,6 @@ export const routes: Routes = [
     component: Home,
     title: 'Inicio',
     canActivate: [authGuard],
-    // servicio propio de esta ruta
-    providers: [UserService],
     children: [
       { path: '', component: UserList, data: { titulo: 'Usuarios' } },
       { path: 'users/new', component: UserForm },
