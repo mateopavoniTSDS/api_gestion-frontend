@@ -1,14 +1,13 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, inject } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { map } from 'rxjs';
-import { UserResponse } from '../models/user-response';
+import { combineLatest, map, startWith } from 'rxjs';
 import { UserService } from '../services/user';
 
 @Component({
   selector: 'app-user-list',
-  imports: [RouterLink, ReactiveFormsModule, FormsModule],
+  imports: [RouterLink, ReactiveFormsModule, FormsModule, AsyncPipe],
   templateUrl: './user-list.html',
 })
 export class UserList {
@@ -17,26 +16,21 @@ export class UserList {
   private router = inject(Router);
 
   titulo = this.route.snapshot.data['titulo'];
-  users = signal<UserResponse[]>([]);
-  sort = toSignal(this.route.queryParamMap.pipe(map((p) => p.get('sort'))));
-
   filterControl = new FormControl('', { nonNullable: true });
-  filter = toSignal(this.filterControl.valueChanges, { initialValue: '' });
-
   searchId: number | null = null;
 
-  sortedUsers = computed(() => {
-    const text = this.filter().toLowerCase();
-    const list = this.users().filter((u) => u.name.toLowerCase().includes(text));
-    if (this.sort() === 'name') {
-      list.sort((a, b) => a.name.localeCompare(b.name));
-    }
-    return list;
-  });
+  sort$ = this.route.queryParamMap.pipe(map((p) => p.get('sort')));
+  filter$ = this.filterControl.valueChanges.pipe(startWith(''));
 
-  constructor() {
-    this.userService.getAll().subscribe((users) => this.users.set(users));
-  }
+  users$ = combineLatest([this.userService.getAll(), this.sort$, this.filter$]).pipe(
+    map(([users, sort, filter]) => {
+      const list = users.filter((u) => u.name.toLowerCase().includes(filter.toLowerCase()));
+      if (sort === 'name') {
+        list.sort((a, b) => a.name.localeCompare(b.name));
+      }
+      return list;
+    }),
+  );
 
   searchById() {
     this.router.navigate(['/home/users', this.searchId]);

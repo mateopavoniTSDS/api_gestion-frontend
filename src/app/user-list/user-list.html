@@ -16,9 +16,10 @@
 </form>
 
 <ul>
-  @for (user of sortedUsers(); track user.id) {
+  @for (user of (users$ | async) ?? []; track user.id) {
     <li>
-      <a [routerLink]="['/home/users', user.id]">{{ user.name }}</a> - {{ user.email }}
+      <a [routerLink]="['/home/users', user.id]">{{ user.name }}</a>
+      - DNI {{ user.dni }} - {{ user.age }} años - {{ user.email }}
     </li>
   }
 </ul>
