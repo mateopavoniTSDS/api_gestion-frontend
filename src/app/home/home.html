@@ -1,6 +1,8 @@
 <header>
   <a routerLink="/home">Inicio</a>
-  <a routerLink="/login">Salir</a>
+  <button type="button" (click)="logout()">Salir</button>
 </header>
+
+<p class="token">Token: {{ token }}</p>
 
 <router-outlet />

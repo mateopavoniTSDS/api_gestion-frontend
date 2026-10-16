@@ -21,6 +21,7 @@ export class UserForm {
   form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
     dni: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+    age: [0, [Validators.required, Validators.min(1), Validators.max(120)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(100)]],
     roleType: [0],
@@ -52,8 +53,8 @@ export class UserForm {
 
   save() {
     this.error.set('');
-    const { name, dni, email, password, roleType } = this.form.getRawValue();
-    const user = { name, dni, email, password, roleType: Number(roleType) };
+    const { name, dni, age, email, password, roleType } = this.form.getRawValue();
+    const user = { name, dni, age: Number(age), email, password, roleType: Number(roleType) };
 
     const request = this.editing
       ? this.userService.update(this.id, user)

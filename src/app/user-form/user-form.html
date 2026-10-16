@@ -13,6 +13,12 @@
     <p class="error">El DNI debe tener entre 6 y 20 caracteres</p>
   }
 
+  <label>Edad</label>
+  <input type="number" formControlName="age">
+  @if (form.controls.age.touched && form.controls.age.invalid) {
+    <p class="error">La edad debe estar entre 1 y 120</p>
+  }
+
   <label>Email</label>
   <input type="email" formControlName="email">
   @if (form.controls.email.touched && form.controls.email.invalid) {

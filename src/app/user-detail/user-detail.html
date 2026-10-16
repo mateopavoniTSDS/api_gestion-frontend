@@ -5,6 +5,7 @@
 @if (user(); as u) {
   <h2>{{ u.name }}</h2>
   <p>DNI: {{ u.dni }}</p>
+  <p>Edad: {{ u.age }}</p>
   <p>Email: {{ u.email }}</p>
   <p>Rol: {{ u.roleType === 1 ? 'Admin' : 'User' }}</p>
 }
