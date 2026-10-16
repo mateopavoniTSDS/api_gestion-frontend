@@ -1,0 +1,13 @@
+<h2>Usuarios</h2>
+
+<a routerLink="/home/users/new">Nuevo usuario</a>
+<a routerLink="/home" [queryParams]="{ sort: 'name' }">Ordenar por nombre</a>
+<a routerLink="/home">Sin orden</a>
+
+<ul>
+  @for (user of sortedUsers(); track user.id) {
+    <li>
+      <a [routerLink]="['/home/users', user.id]">{{ user.name }}</a> - {{ user.email }}
+    </li>
+  }
+</ul>
