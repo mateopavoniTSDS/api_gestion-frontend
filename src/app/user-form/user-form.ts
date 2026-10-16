@@ -7,6 +7,7 @@ import { UserService } from '../services/user';
   selector: 'app-user-form',
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './user-form.html',
+  styleUrl: './user-form.css',
 })
 export class UserForm {
   private fb = inject(FormBuilder);

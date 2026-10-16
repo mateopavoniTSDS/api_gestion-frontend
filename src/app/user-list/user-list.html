@@ -1,25 +1,40 @@
-<h2>{{ titulo }}</h2>
-
-<a routerLink="/home/users/new">Nuevo usuario</a>
-<a routerLink="/home" [queryParams]="{ sort: 'name' }">Ordenar por nombre</a>
-<a routerLink="/home">Sin orden</a>
-
-<div>
-  <label>Filtrar por nombre</label>
-  <input [formControl]="filterControl">
+<div class="row head">
+  <h2>{{ titulo }}</h2>
+  <a class="btn btn-small" routerLink="/home/users/new">+ Nuevo usuario</a>
 </div>
 
-<form (ngSubmit)="searchById()">
-  <label>Buscar por id</label>
-  <input type="number" name="id" [(ngModel)]="searchId">
-  <button type="submit" [disabled]="!searchId">Buscar</button>
-</form>
+<div class="row sort">
+  <span class="muted">Orden:</span>
+  <a class="btn btn-secondary btn-small" routerLink="/home" [queryParams]="{ sort: 'name' }">Por nombre</a>
+  <a class="btn btn-secondary btn-small" routerLink="/home">Sin orden</a>
+</div>
+
+<div class="tools">
+  <div class="field">
+    <label>Filtrar por nombre</label>
+    <input [formControl]="filterControl" placeholder="Ej: Juan">
+  </div>
+
+  <form class="field" (ngSubmit)="searchById()">
+    <label>Buscar por id</label>
+    <div class="row nowrap">
+      <input type="number" name="id" [(ngModel)]="searchId" placeholder="Ej: 3">
+      <button type="submit" [disabled]="!searchId">Buscar</button>
+    </div>
+  </form>
+</div>
 
 <ul>
   @for (user of (users$ | async) ?? []; track user.id) {
     <li>
-      <a [routerLink]="['/home/users', user.id]">{{ user.name }}</a>
-      - DNI {{ user.dni }} - {{ user.age }} años - {{ user.email }}
+      <span class="avatar">{{ user.name.charAt(0).toUpperCase() }}</span>
+      <div class="info">
+        <a [routerLink]="['/home/users', user.id]">{{ user.name }}</a>
+        <span class="muted">DNI {{ user.dni }} · {{ user.age }} años · {{ user.email }}</span>
+      </div>
+      <span class="badge">{{ user.roleType === 1 ? 'Admin' : 'User' }}</span>
     </li>
+  } @empty {
+    <li class="muted">No hay usuarios para mostrar</li>
   }
 </ul>

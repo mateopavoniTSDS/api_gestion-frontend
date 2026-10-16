@@ -7,6 +7,7 @@ import { UserService } from '../services/user';
   selector: 'app-user-detail',
   imports: [RouterLink],
   templateUrl: './user-detail.html',
+  styleUrl: './user-detail.css',
 })
 export class UserDetail {
   private userService = inject(UserService);

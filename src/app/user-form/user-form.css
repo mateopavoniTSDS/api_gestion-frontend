@@ -1,0 +1,19 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+form p {
+  margin: 0;
+}
+
+.nowrap {
+  flex-wrap: nowrap;
+}
+
+.nowrap input {
+  flex: 1;
+  min-width: 0;
+}

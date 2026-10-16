@@ -1,71 +1,97 @@
 <h2>{{ editing ? 'Editar usuario' : 'Nuevo usuario' }}</h2>
+<p class="muted">Completá los datos y guardá</p>
 
 <form [formGroup]="form" (ngSubmit)="save()">
-  <label>Nombre</label>
-  <input formControlName="name">
-  @if (form.controls.name.touched && form.controls.name.invalid) {
-    <p class="error">El nombre debe tener entre 2 y 100 caracteres</p>
-  }
+  <div class="grid">
+    <div class="field">
+      <label>Nombre</label>
+      <input formControlName="name" placeholder="Ej: Juan Pérez">
+      @if (form.controls.name.touched && form.controls.name.invalid) {
+        <p class="error">El nombre debe tener entre 2 y 100 caracteres</p>
+      }
+    </div>
 
-  <label>DNI</label>
-  <input formControlName="dni">
-  @if (form.controls.dni.touched && form.controls.dni.invalid) {
-    <p class="error">El DNI debe tener entre 6 y 20 caracteres</p>
-  }
+    <div class="field">
+      <label>DNI</label>
+      <input formControlName="dni" placeholder="Ej: 12345678">
+      @if (form.controls.dni.touched && form.controls.dni.invalid) {
+        <p class="error">El DNI debe tener entre 6 y 20 caracteres</p>
+      }
+    </div>
 
-  <label>Edad</label>
-  <input type="number" formControlName="age">
-  @if (form.controls.age.touched && form.controls.age.invalid) {
-    <p class="error">La edad debe estar entre 1 y 120</p>
-  }
+    <div class="field">
+      <label>Edad</label>
+      <input type="number" formControlName="age" placeholder="Ej: 25">
+      @if (form.controls.age.touched && form.controls.age.invalid) {
+        <p class="error">La edad debe estar entre 1 y 120</p>
+      }
+    </div>
 
-  <label>Email</label>
-  <input type="email" formControlName="email">
-  @if (form.controls.email.touched && form.controls.email.invalid) {
-    <p class="error">El email no es válido</p>
-  }
+    <div class="field">
+      <label>Rol</label>
+      <select formControlName="roleType">
+        <option [value]="0">User</option>
+        <option [value]="1">Admin</option>
+      </select>
+    </div>
 
-  <label>Password</label>
-  <input type="password" formControlName="password">
-  @if (form.controls.password.touched && form.controls.password.invalid) {
-    <p class="error">La contraseña debe tener entre 6 y 100 caracteres</p>
-  }
+    <div class="field">
+      <label>Email</label>
+      <input type="email" formControlName="email" placeholder="ejemplo@correo.com">
+      @if (form.controls.email.touched && form.controls.email.invalid) {
+        <p class="error">El email no es válido</p>
+      }
+    </div>
 
-  <label>Rol</label>
-  <select formControlName="roleType">
-    <option [value]="0">User</option>
-    <option [value]="1">Admin</option>
-  </select>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" formControlName="password" placeholder="Mínimo 6 caracteres">
+      @if (form.controls.password.touched && form.controls.password.invalid) {
+        <p class="error">La contraseña debe tener entre 6 y 100 caracteres</p>
+      }
+    </div>
+  </div>
 
   <fieldset formGroupName="address">
     <legend>Dirección</legend>
-    <label>Calle</label>
-    <input formControlName="street">
-    <label>Ciudad</label>
-    <input formControlName="city">
+    <div class="grid">
+      <div class="field">
+        <label>Calle</label>
+        <input formControlName="street" placeholder="Ej: Av. Colón 123">
+      </div>
+      <div class="field">
+        <label>Ciudad</label>
+        <input formControlName="city" placeholder="Ej: Córdoba">
+      </div>
+    </div>
   </fieldset>
 
   <fieldset>
     <legend>Teléfonos</legend>
     @for (phone of phones.controls; track $index) {
-      <div>
-        <input [formControl]="$any(phone)">
-        <button type="button" (click)="removePhone($index)">Quitar</button>
+      <div class="row nowrap">
+        <input [formControl]="$any(phone)" placeholder="Ej: 351 1234567">
+        <button type="button" class="btn-secondary btn-small" (click)="removePhone($index)">Quitar</button>
       </div>
     }
-    <button type="button" (click)="addPhone()">Agregar teléfono</button>
+    <div>
+      <button type="button" class="btn-secondary btn-small" (click)="addPhone()">Agregar teléfono</button>
+    </div>
   </fieldset>
 
-  <button type="button" (click)="setExampleName()">Nombre de ejemplo</button>
-  <button type="button" (click)="setExampleCity()">Ciudad Córdoba</button>
+  <div class="row">
+    <button type="button" class="btn-secondary btn-small" (click)="setExampleName()">Nombre de ejemplo</button>
+    <button type="button" class="btn-secondary btn-small" (click)="setExampleCity()">Ciudad Córdoba</button>
+  </div>
 
-  <p>Estado del formulario: {{ form.status }}</p>
+  <p class="muted">Estado del formulario: {{ form.status }}</p>
 
-  <button type="submit" [disabled]="form.invalid">Guardar</button>
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  <div class="row">
+    <button type="submit" [disabled]="form.invalid">Guardar</button>
+    <a class="btn btn-secondary" routerLink="/home">Volver</a>
+  </div>
 </form>
-
-@if (error()) {
-  <p class="error">{{ error() }}</p>
-}
-
-<a routerLink="/home">Volver</a>

@@ -9,6 +9,7 @@ import { UserService } from '../services/user';
   selector: 'app-user-list',
   imports: [RouterLink, ReactiveFormsModule, FormsModule, AsyncPipe],
   templateUrl: './user-list.html',
+  styleUrl: './user-list.css',
 })
 export class UserList {
   private userService = inject(UserService);

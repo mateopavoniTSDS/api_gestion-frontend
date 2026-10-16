@@ -1,26 +1,20 @@
-form {
+:host {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 1rem;
+}
+
+.card {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  max-width: 300px;
-  margin: 4rem auto;
-  font-family: sans-serif;
+  gap: 1rem;
+  width: 100%;
+  max-width: 380px;
+  margin: 0;
+  padding: 2rem;
 }
 
-input {
-  padding: 0.5rem;
-  font-size: 1rem;
-}
-
-button {
-  padding: 0.5rem;
-  cursor: pointer;
-}
-
-.error {
-  color: red;
-}
-
-.token {
-  word-break: break-all;
+.card p {
+  margin: 0;
 }

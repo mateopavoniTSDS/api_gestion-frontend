@@ -1,0 +1,27 @@
+.head {
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.big {
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 1.4rem;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 0.6rem 1rem;
+  margin: 0 0 1.25rem;
+}
+
+dt {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+dd {
+  margin: 0;
+  font-weight: 500;
+}
