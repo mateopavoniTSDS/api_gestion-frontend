@@ -1,16 +1,22 @@
-@if (error()) {
-  <p class="error">{{ error() }}</p>
+@if (user(); as u) {
+  @if (field) {
+    @switch (field) {
+      @case ('name') { <p>Nombre: {{ u.name }}</p> }
+      @case ('email') { <p>Email: {{ u.email }}</p> }
+      @case ('dni') { <p>DNI: {{ u.dni }}</p> }
+      @case ('age') { <p>Edad: {{ u.age }}</p> }
+      @default { <p>Ese dato no existe</p> }
+    }
+    <a [routerLink]="['/home/users', u.id]">Ver todo</a>
+  } @else {
+    <h2>{{ u.name }}</h2>
+    <p>DNI: {{ u.dni }}</p>
+    <p>Edad: {{ u.age }}</p>
+    <p>Email: {{ u.email }}</p>
+    <p>Rol: {{ u.roleType === 1 ? 'Admin' : 'User' }}</p>
+    <a routerLink="edit">Editar</a>
+    <a [routerLink]="['email']">Ver solo el email</a>
+  }
 }
 
-@if (user(); as u) {
-  <h2>{{ u.name }}</h2>
-  <p>DNI: {{ u.dni }}</p>
-  <p>Edad: {{ u.age }}</p>
-  <p>Email: {{ u.email }}</p>
-  <p>Rol: {{ u.roleType === 1 ? 'Admin' : 'User' }}</p>
-}
-
-@if (user(); as u) {
-  <a [routerLink]="['/home/users', u.id, 'edit']">Editar</a>
-}
 <a routerLink="/home">Volver</a>

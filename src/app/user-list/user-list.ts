@@ -14,6 +14,7 @@ export class UserList {
   private userService = inject(UserService);
   private route = inject(ActivatedRoute);
 
+  titulo = this.route.snapshot.data['titulo'];
   users = signal<UserResponse[]>([]);
   sort = toSignal(this.route.queryParamMap.pipe(map((p) => p.get('sort'))));
 

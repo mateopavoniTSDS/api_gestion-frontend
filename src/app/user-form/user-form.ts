@@ -15,7 +15,7 @@ export class UserForm {
   private router = inject(Router);
 
   id = Number(this.route.snapshot.params['id']);
-  editing = !!this.id;
+  editing = this.route.snapshot.url.at(-1)?.path === 'edit';
   error = signal('');
 
   form = this.fb.nonNullable.group({
@@ -61,7 +61,9 @@ export class UserForm {
       : this.userService.create(user);
 
     request.subscribe({
-      next: () => this.router.navigate(['/home']),
+      // sube tantos niveles como segmentos tiene la ruta (users/new o users/:id/edit)
+      next: () =>
+        this.router.navigate([this.editing ? '../../..' : '../..'], { relativeTo: this.route }),
       error: (err) =>
         this.error.set(typeof err.error === 'string' ? err.error : 'No se pudo guardar el usuario'),
     });

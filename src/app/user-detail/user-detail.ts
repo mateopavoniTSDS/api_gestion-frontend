@@ -14,17 +14,15 @@ export class UserDetail {
   private router = inject(Router);
 
   user = signal<UserResponse | null>(null);
-  error = signal('');
+  id = Number(this.route.snapshot.params['id']);
+  field = this.route.snapshot.params['field'];
 
   constructor() {
-    const id = Number(this.route.snapshot.params['id']);
-
-    this.userService.getById(id).subscribe({
+    this.userService.getById(this.id).subscribe({
       next: (user) => this.user.set(user),
       error: (err) => {
         if (err.status === 404) {
-          this.error.set('El usuario no existe');
-          setTimeout(() => this.router.navigate(['/home']), 2000);
+          this.router.navigateByUrl('/not-found', { skipLocationChange: true });
         }
       },
     });
