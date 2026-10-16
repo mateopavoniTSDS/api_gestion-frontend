@@ -43,6 +43,14 @@ export class UserForm {
     return this.form.controls.phones as FormArray;
   }
 
+  setExampleName() {
+    this.form.controls.name.setValue('Nombre de ejemplo');
+  }
+
+  setExampleCity() {
+    this.form.patchValue({ address: { city: 'Córdoba' } });
+  }
+
   addPhone() {
     this.phones.push(this.fb.nonNullable.control(''));
   }

@@ -4,6 +4,17 @@
 <a routerLink="/home" [queryParams]="{ sort: 'name' }">Ordenar por nombre</a>
 <a routerLink="/home">Sin orden</a>
 
+<div>
+  <label>Filtrar por nombre</label>
+  <input [formControl]="filterControl">
+</div>
+
+<form (ngSubmit)="searchById()">
+  <label>Buscar por id</label>
+  <input type="number" name="id" [(ngModel)]="searchId">
+  <button type="submit" [disabled]="!searchId">Buscar</button>
+</form>
+
 <ul>
   @for (user of sortedUsers(); track user.id) {
     <li>

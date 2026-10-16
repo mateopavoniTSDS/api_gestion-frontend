@@ -56,6 +56,11 @@
     <button type="button" (click)="addPhone()">Agregar teléfono</button>
   </fieldset>
 
+  <button type="button" (click)="setExampleName()">Nombre de ejemplo</button>
+  <button type="button" (click)="setExampleCity()">Ciudad Córdoba</button>
+
+  <p>Estado del formulario: {{ form.status }}</p>
+
   <button type="submit" [disabled]="form.invalid">Guardar</button>
 </form>
 
