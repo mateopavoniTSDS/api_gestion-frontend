@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { UserService } from '../services/user';
+import { UserService } from '../../services/user';
 
 @Component({
   selector: 'app-user-form',

@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { UserResponse } from '../models/user-response';
-import { UserService } from '../services/user';
+import { UserResponse } from '../../models/user-response';
+import { UserService } from '../../services/user';
 
 @Component({
   selector: 'app-user-detail',

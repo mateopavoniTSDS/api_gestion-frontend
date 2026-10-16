@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { Login } from './login/login';
-import { Home } from './home/home';
-import { UserList } from './user-list/user-list';
-import { UserDetail } from './user-detail/user-detail';
-import { UserForm } from './user-form/user-form';
+import { Login } from './components/login/login';
+import { Home } from './components/home/home';
+import { UserList } from './components/user-list/user-list';
+import { UserDetail } from './components/user-detail/user-detail';
+import { UserForm } from './components/user-form/user-form';
 import { authGuard } from './auth-guard';
-import { NotFound } from './not-found/not-found';
+import { NotFound } from './components/not-found/not-found';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },

@@ -3,7 +3,7 @@ import { AsyncPipe } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { combineLatest, map, startWith } from 'rxjs';
-import { UserService } from '../services/user';
+import { UserService } from '../../services/user';
 
 @Component({
   selector: 'app-user-list',
